@@ -1,0 +1,70 @@
+<div class="flex flex-col pt-16" style="height: calc(100vh - 3.7rem)">
+    <div class="text-center py-4 bg-gray-800 text-white text-xl font-bold">
+        Airports
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-4 py-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div *ngFor="let airport of airports"
+                class="bg-white shadow-lg rounded-lg p-4 cursor-pointer hover:shadow-xl transition"
+                (click)="onAirportClick(airport)">
+
+                <h4 class="text-sm font-semibold text-center text-gray-800">{{ airport.name }}</h4>
+
+                <div class="flex justify-between mt-2">
+                    <div class="text-xs text-gray-600">
+                        <p><strong>Ident:</strong> {{ airport.ident }}</p>
+                        <p><strong>Type:</strong> {{ airport.type }}</p>
+                    </div>
+
+                    <div class="text-xs text-gray-600 text-right">
+                        <p><strong>Lat:</strong> {{ airport.latitude_deg | number: '1.2-2' }}</p>
+                        <p><strong>Lng:</strong> {{ airport.longitude_deg | number: '1.2-2' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Bottom Section -->
+    <div class="bg-gray-100 py-4 flex justify-center gap-4 border-t border-gray-300">
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:opacity-50">
+            Previous
+        </button>
+
+        <span class="px-4 py-2 bg-gray-700 text-white rounded">
+            Page {{ currentPage }} of {{ totalPages }}
+        </span>
+
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:opacity-50">
+            Next
+        </button>
+    </div>
+
+    <!-- Airport Details Modal -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-11/12 md:w-1/2 relative">
+            <button (click)="close()" class="absolute top-2 right-2 text-lg font-bold">X</button>
+
+            <div *ngIf="loading" class="text-center">
+                <p>Loading...</p>
+            </div>
+
+            <div *ngIf="errorMessage" class="text-center text-red-500">
+                <p>{{ errorMessage }}</p>
+            </div>
+
+            <div *ngIf="!loading && !errorMessage && airportDetails">
+                <h2 class="text-xl font-bold text-center mb-4">{{ airportDetails?.name }}</h2>
+                <div class="space-y-4">
+                    <p><strong>Ident:</strong> {{ airportDetails?.ident }}</p>
+                    <p><strong>Type:</strong> {{ airportDetails?.type }}</p>
+                    <p><strong>Latitude:</strong> {{ airportDetails?.latitude_deg }}</p>
+                    <p><strong>Longitude:</strong> {{ airportDetails?.longitude_deg }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
