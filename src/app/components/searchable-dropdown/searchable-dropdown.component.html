@@ -1,0 +1,14 @@
+<div class="dropdown">
+    <div class="dropdown-header" (click)="toggleDropdown()">
+        {{ selectedItem || placeholder }}
+    </div>
+    <div *ngIf="dropdownOpen()" class="dropdown-body">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search..." class="search-input" />
+        <ul class="options-list">
+            <li *ngFor="let item of filteredItems()" (click)="selectItem(item)"
+                [class.selected]="item === selectedItem">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+</div>

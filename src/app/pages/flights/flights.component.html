@@ -1,0 +1,70 @@
+<div class="container mx-auto mt-10 px-4">
+    <div class="grid grid-cols-2 gap-6">
+        <!-- Flights List Section (Left Side) -->
+        <div class="bg-white p-6 shadow-lg rounded-xl">
+            <h2 class="text-xl font-semibold mb-4">Flights List</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto bg-gray-100 rounded-lg shadow-md">
+                    <thead class="bg-gray-200 text-gray-700">
+                        <tr>
+                            <th class="py-2 px-4 text-left">Flight No.</th>
+                            <th class="py-2 px-4 text-left">Time</th>
+                            <th class="py-2 px-4 text-left">Origin</th>
+                            <th class="py-2 px-4 text-left">Destination</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600">
+                        <tr *ngFor="let flight of flights" class="border-b">
+                            <td class="py-1 px-4">{{ flight.flight_no }}</td>
+                            <td class="py-1 px-4">{{ flight.time }}</td>
+                            <td class="py-1 px-4">{{ flight.origin }}</td>
+                            <td class="py-1 px-4">{{ flight.destination }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+
+        <!-- Create Flight Section (Right Side) -->
+        <div class="bg-white p-6 shadow-lg rounded-xl">
+            <h3 class="text-xl font-semibold mb-4">Create New Flight</h3>
+            <form [formGroup]="flightForm" (ngSubmit)="createNewFlight()" class="space-y-4">
+                <!-- Flight No & Time (Same Row) -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Flight No:</label>
+                        <input type="text" formControlName="flight_no" required
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Time:</label>
+                        <input type="datetime-local" formControlName="time" required
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2" />
+                    </div>
+                </div>
+
+                <!-- Origin & Destination (Same Row) -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Origin:</label>
+                        <app-searchable-dropdown [items]="airportList" placeholder="Select Origin"
+                            (selected)="onOriginSelected($event)">
+                        </app-searchable-dropdown>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Destination:</label>
+                        <app-searchable-dropdown [items]="airportList" placeholder="Select Destination"
+                            (selected)="onDestinationSelected($event)">
+                        </app-searchable-dropdown>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg shadow-md hover:bg-indigo-700 transition">
+                    Create Flight
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
