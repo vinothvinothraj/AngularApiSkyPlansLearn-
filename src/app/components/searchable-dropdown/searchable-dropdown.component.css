@@ -1,0 +1,47 @@
+.dropdown {
+    position: relative;
+    width: 200px;
+}
+
+.dropdown-header {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius:6px 6px 0 0;
+    background: white;
+    cursor: pointer;
+}
+
+.dropdown-body {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    text-align: left;
+}
+
+.search-input {
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+}
+
+.options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.options-list li {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.options-list li:hover,
+.options-list li.selected {
+    background: #007bff;
+    color: white;
+}

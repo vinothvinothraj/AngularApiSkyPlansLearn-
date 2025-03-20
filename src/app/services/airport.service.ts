@@ -18,5 +18,9 @@ export class AirportService {
   getAirportDetails(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/airports/${id}`);
   }
+
+  searchAndGetAirportIdent(query: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/airports-search?query=${query}`);
+  }
 }
 
